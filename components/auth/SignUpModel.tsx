@@ -13,9 +13,21 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { schema } from "@hookform/resolvers/ajv/src/__tests__/__fixtures__/data.js";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { RegisterType, registerSchema } from "@/validations/authSchema";
 
 const SignUpModel = () => {
   const [open, setOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterType>({
+    resolver: yupResolver(registerSchema),
+  });
+  const onSubmit = (data: RegisterType) => console.log(data);
   return (
     <AlertDialog open={open}>
       <AlertDialogTrigger asChild onClick={() => setOpen(true)}>
@@ -35,26 +47,42 @@ const SignUpModel = () => {
             </div>
           </AlertDialogTitle>
           <AlertDialogDescription>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <h1 className="text-lg font-bold">Welcome to Airbnb</h1>
               <div className="mt-5">
                 <Label htmlFor="email">Name</Label>
-                <Input placeholder="Enter your name" id="name" />
+                <Input
+                  placeholder="Enter your name"
+                  id="name"
+                  {...register("name")}
+                />
                 <span className="text-red-400"></span>
               </div>
               <div className="mt-5">
                 <Label htmlFor="email">Email</Label>
-                <Input placeholder="Enter your email" id="email" />
+                <Input
+                  placeholder="Enter your email"
+                  id="email"
+                  {...register("email")}
+                />
                 <span className="text-red-400"></span>
               </div>
               <div className="mt-5">
                 <Label htmlFor="password">Password</Label>
-                <Input placeholder="Enter your Password" id="password" />
+                <Input
+                  placeholder="Enter your Password"
+                  id="password"
+                  {...register("password")}
+                />
                 <span className="text-red-400"></span>
               </div>
               <div className="mt-5">
                 <Label htmlFor="cpassword">Confirm Password</Label>
-                <Input placeholder="Confirm your Password" id="cpassword" />
+                <Input
+                  placeholder="Confirm your Password"
+                  id="cpassword"
+                  {...register("password_confirmation")}
+                />
                 <span className="text-red-400"></span>
               </div>
               <div className="mt-5">
