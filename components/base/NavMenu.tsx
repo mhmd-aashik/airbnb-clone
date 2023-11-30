@@ -6,12 +6,14 @@ import {
 } from "@/components/ui/popover";
 import { Menu } from "lucide-react";
 import Image from "next/image";
+import LoginModel from "../auth/LoginModel";
+import SignUpModel from "../auth/SignUpModel";
 
 const NavMenu = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Menu />
+        <Menu className="cursor-pointer" />
       </PopoverTrigger>
       <PopoverContent className="mr-10">
         <Image
@@ -22,12 +24,8 @@ const NavMenu = () => {
           className="m-auto"
         />
         <ul className="text-center">
-          <li className="hover:bg-brand rounded-md p-2 cursor-pointer">
-            Login
-          </li>
-          <li className="hover:bg-brand rounded-md p-2 cursor-pointer">
-            Sign Up
-          </li>
+          <LoginModel />
+          <SignUpModel />
         </ul>
       </PopoverContent>
     </Popover>
